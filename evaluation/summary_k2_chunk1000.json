@@ -1,0 +1,48 @@
+{
+  "experiment_name": "k2_chunk1000",
+  "k": 2,
+  "chunk_size": 1000,
+  "overall_precision": 0.7,
+  "per_question_precision": [
+    {
+      "question_id": 1,
+      "precision": 0.5
+    },
+    {
+      "question_id": 2,
+      "precision": 0.5
+    },
+    {
+      "question_id": 3,
+      "precision": 1.0
+    },
+    {
+      "question_id": 4,
+      "precision": 1.0
+    },
+    {
+      "question_id": 5,
+      "precision": 0.5
+    },
+    {
+      "question_id": 6,
+      "precision": 1.0
+    },
+    {
+      "question_id": 7,
+      "precision": 0.5
+    },
+    {
+      "question_id": 8,
+      "precision": 1.0
+    },
+    {
+      "question_id": 9,
+      "precision": 1.0
+    },
+    {
+      "question_id": 10,
+      "precision": 0.0
+    }
+  ]
+}

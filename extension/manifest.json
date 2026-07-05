@@ -1,0 +1,28 @@
+
+
+{
+    "manifest_version" : 3,
+    "name" : "Ask YouTube",
+    "version" : "1.0",
+    "description"  : "Ask questions about any YouTube video.",
+    "permissions" : [
+        "activeTab"
+    ],
+    "action":{
+
+        "default_popup" : "popup.html",
+        "default_icon":"icon.png"
+
+    },
+    "content_scripts" : [
+        {
+            "matches": [
+                "*://www.youtube.com/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ]
+
+}

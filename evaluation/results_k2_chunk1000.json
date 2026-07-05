@@ -1,0 +1,169 @@
+{
+  "experiment_name": "k2_chunk1000",
+  "video_id": "5KmopXwjXik",
+  "chunk_size": 1000,
+  "chunk_overlap": 200,
+  "k": 2,
+  "result": [
+    {
+      "question_id": 1,
+      "question_text": "What is the main topic of this video?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "this one to go off and look at one bit of the internet and this other one to look at a different bit of the internet. And while they're looking at these different bits of the internet, they can be syncing with each other. So they keep their weights the same, the connection strengths the same. Weights are connection strengths. >> Mhm. >> So this one might look at something on the internet and say, \"Oh, I'd like to increase this strength of this connection a bit.\" And it can convey that information to this one. So it can increase the strength of that connection a bit based on this one's experience. >> And when you say the strength of the connection, you're talking about learning. >> That's learning. Yes. Learning consists of saying instead of this one giving 2.4 four votes for whether that one should turn on. We'll have this one give 2.5 votes for whether this one should turn on. >> And that will be a little bit of learning. >> So these two different copies of the same neural net are",
+          "relevant": 0
+        },
+        {
+          "chunk_index": 1,
+          "text": "separately. >> So it's seen many many analogies probably many analogies that people have never seen. That's why I also think that people who say these things will never be creative. They're going to be much more creative than us because they're going to see all sorts of analogies we never saw. And a lot of creativity is about seeing strange analogies. If you love the D CEO brand and you watch this channel, please do me a huge favor. become part of the 15% of the viewers on this channel that have hit the subscribe button. It helps us tremendously and the bigger the channel gets, the bigger the guests.",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 2,
+      "question_text": "Who is Geoffrey Hinton?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object recognition working well. He was the main the main force behind the things like GPG2 which then led to chat GPT. So I think having a lot of faith in IA is a very reasonable decision. There's something quite haunting about the guy that made and was the main force behind GPT2 which led rise to this whole revolution left the company because of safety reasons. He knows something that I don't know about what might happen next. >> Well, the company had now I don't know the precise details. Um, but I'm fairly sure the company had indicated that would it would use a significant fraction of its resources of the compute time for doing safety research and then it kept then it reduced that fraction. I think that's one of the things that happened. >> Yeah, that was reported publicly. >> Yes. >> Yeah.",
+          "relevant": 1
+        },
+        {
+          "chunk_index": 1,
+          "text": "say that this might be a decade away or so. >> Yeah, it might be. It might be even closer. Some people think it's even closer and might well be much further. It might be 50 years away. That's still a possibility. It might be that somehow training on human data limits you to not being much smarter than humans. My guess is between 10 and 20 years we'll have super intelligence. On this point of joblessness, it's something that I've been thinking a lot about in particular because I started messing around with AI agents and we released an episode on the podcast actually this morning where we had a debate about AI agents with some a CEO of a big AI agent company and a few other people and it was the first moment where I had no it was another moment where I had a Eureka moment about what the future might look like when I was able in the interview to tell this agent to order all of us drinks and then 5 minutes later in the interview you see the guy show up with the drinks and I didn't touch",
+          "relevant": 0
+        }
+      ]
+    },
+    {
+      "question_id": 3,
+      "question_text": "What does Hinton say about slowing down AI progress?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "Are you at all hopeful that anything can be done to slow down the pace and acceleration of AI? >> Okay, there's two issues. One is can you slow it down? >> Yeah. >> And the other is can you make it so it will be safe in the end. It won't wipe us all out. I don't believe we're going to slow it down. >> Yeah. >> And the reason I don't believe we're going to slow it down is because there's competition between countries and competition between companies within a country and all of that is making it go faster and faster. And if the US slowed it down, China wouldn't slow it down. >> Does Ilia think it's possible to make AI safe? >> I think he does. He won't tell me what his secret source is. I I'm not sure how many people know what his secret source is. I think a lot of the investors don't know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object",
+          "relevant": 1
+        },
+        {
+          "chunk_index": 1,
+          "text": "of the compute time for doing safety research and then it kept then it reduced that fraction. I think that's one of the things that happened. >> Yeah, that was reported publicly. >> Yes. >> Yeah. >> We've gotten to the autonomous weapons part of the risk framework. >> Right. So the next one is joblessness. >> Yeah. In the past, new technologies have come in which didn't lead to joblessness. New jobs were created. So the classic example people use is automatic teller machines. When automatic tele machines came in, a lot of bank tellers didn't lose their jobs. They just got to do more interesting things. But here, I think this is more like when they got machines in the industrial revolution. And you can't have a job digging ditches now because a machine can dig ditches much better than you can. >> And I think for mundane intellectual labor, AI is just going to replace everybody. Now, it will may well be in the form of you have fewer people using AI assistance. So, it's a combination of",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 4,
+      "question_text": "Why does Hinton think AI development can't realistically be slowed down?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "Are you at all hopeful that anything can be done to slow down the pace and acceleration of AI? >> Okay, there's two issues. One is can you slow it down? >> Yeah. >> And the other is can you make it so it will be safe in the end. It won't wipe us all out. I don't believe we're going to slow it down. >> Yeah. >> And the reason I don't believe we're going to slow it down is because there's competition between countries and competition between companies within a country and all of that is making it go faster and faster. And if the US slowed it down, China wouldn't slow it down. >> Does Ilia think it's possible to make AI safe? >> I think he does. He won't tell me what his secret source is. I I'm not sure how many people know what his secret source is. I think a lot of the investors don't know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object",
+          "relevant": 1
+        },
+        {
+          "chunk_index": 1,
+          "text": "of the compute time for doing safety research and then it kept then it reduced that fraction. I think that's one of the things that happened. >> Yeah, that was reported publicly. >> Yes. >> Yeah. >> We've gotten to the autonomous weapons part of the risk framework. >> Right. So the next one is joblessness. >> Yeah. In the past, new technologies have come in which didn't lead to joblessness. New jobs were created. So the classic example people use is automatic teller machines. When automatic tele machines came in, a lot of bank tellers didn't lose their jobs. They just got to do more interesting things. But here, I think this is more like when they got machines in the industrial revolution. And you can't have a job digging ditches now because a machine can dig ditches much better than you can. >> And I think for mundane intellectual labor, AI is just going to replace everybody. Now, it will may well be in the form of you have fewer people using AI assistance. So, it's a combination of",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 5,
+      "question_text": "What is the difference between slowing AI down and making AI safe, according to Hinton?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "Are you at all hopeful that anything can be done to slow down the pace and acceleration of AI? >> Okay, there's two issues. One is can you slow it down? >> Yeah. >> And the other is can you make it so it will be safe in the end. It won't wipe us all out. I don't believe we're going to slow it down. >> Yeah. >> And the reason I don't believe we're going to slow it down is because there's competition between countries and competition between companies within a country and all of that is making it go faster and faster. And if the US slowed it down, China wouldn't slow it down. >> Does Ilia think it's possible to make AI safe? >> I think he does. He won't tell me what his secret source is. I I'm not sure how many people know what his secret source is. I think a lot of the investors don't know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object",
+          "relevant": 0
+        },
+        {
+          "chunk_index": 1,
+          "text": "of the compute time for doing safety research and then it kept then it reduced that fraction. I think that's one of the things that happened. >> Yeah, that was reported publicly. >> Yes. >> Yeah. >> We've gotten to the autonomous weapons part of the risk framework. >> Right. So the next one is joblessness. >> Yeah. In the past, new technologies have come in which didn't lead to joblessness. New jobs were created. So the classic example people use is automatic teller machines. When automatic tele machines came in, a lot of bank tellers didn't lose their jobs. They just got to do more interesting things. But here, I think this is more like when they got machines in the industrial revolution. And you can't have a job digging ditches now because a machine can dig ditches much better than you can. >> And I think for mundane intellectual labor, AI is just going to replace everybody. Now, it will may well be in the form of you have fewer people using AI assistance. So, it's a combination of",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 6,
+      "question_text": "Does Hinton believe AI poses a real danger to humanity?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "Are you at all hopeful that anything can be done to slow down the pace and acceleration of AI? >> Okay, there's two issues. One is can you slow it down? >> Yeah. >> And the other is can you make it so it will be safe in the end. It won't wipe us all out. I don't believe we're going to slow it down. >> Yeah. >> And the reason I don't believe we're going to slow it down is because there's competition between countries and competition between companies within a country and all of that is making it go faster and faster. And if the US slowed it down, China wouldn't slow it down. >> Does Ilia think it's possible to make AI safe? >> I think he does. He won't tell me what his secret source is. I I'm not sure how many people know what his secret source is. I think a lot of the investors don't know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object",
+          "relevant": 1
+        },
+        {
+          "chunk_index": 1,
+          "text": "of the compute time for doing safety research and then it kept then it reduced that fraction. I think that's one of the things that happened. >> Yeah, that was reported publicly. >> Yes. >> Yeah. >> We've gotten to the autonomous weapons part of the risk framework. >> Right. So the next one is joblessness. >> Yeah. In the past, new technologies have come in which didn't lead to joblessness. New jobs were created. So the classic example people use is automatic teller machines. When automatic tele machines came in, a lot of bank tellers didn't lose their jobs. They just got to do more interesting things. But here, I think this is more like when they got machines in the industrial revolution. And you can't have a job digging ditches now because a machine can dig ditches much better than you can. >> And I think for mundane intellectual labor, AI is just going to replace everybody. Now, it will may well be in the form of you have fewer people using AI assistance. So, it's a combination of",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 7,
+      "question_text": "What role does competition between countries play in AI development, per this video?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "risk. >> Okay, I'm going to become a plumber. >> Someone like a legal assistant, a parallegal. >> Um they're not going to be needed for very long. >> And is there a wealth inequality issue here that will will arise from this? >> Yeah, I think in a society which shared out things fairly, if you get a big increase in productivity, everybody should be better off. But if you can replace lots of people by AIS, then the people who get replaced will be worse off and the company that supplies the AIS will be much better off and the company that uses the AIS. So it's going to increase the gap between rich and poor. And we know that if you look at that gap between rich and poor, that basically tells you how nice the society is. If you have a big gap, you get very nasty societies in which people live in walled communities and put other people in mass jails. It's not good to increase the gap between rich and poor. >> The International Monetary Fund has expressed profound concerns that generative",
+          "relevant": 0
+        },
+        {
+          "chunk_index": 1,
+          "text": "Are you at all hopeful that anything can be done to slow down the pace and acceleration of AI? >> Okay, there's two issues. One is can you slow it down? >> Yeah. >> And the other is can you make it so it will be safe in the end. It won't wipe us all out. I don't believe we're going to slow it down. >> Yeah. >> And the reason I don't believe we're going to slow it down is because there's competition between countries and competition between companies within a country and all of that is making it go faster and faster. And if the US slowed it down, China wouldn't slow it down. >> Does Ilia think it's possible to make AI safe? >> I think he does. He won't tell me what his secret source is. I I'm not sure how many people know what his secret source is. I think a lot of the investors don't know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 8,
+      "question_text": "What specific warning does Hinton give in this video?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object recognition working well. He was the main the main force behind the things like GPG2 which then led to chat GPT. So I think having a lot of faith in IA is a very reasonable decision. There's something quite haunting about the guy that made and was the main force behind GPT2 which led rise to this whole revolution left the company because of safety reasons. He knows something that I don't know about what might happen next. >> Well, the company had now I don't know the precise details. Um, but I'm fairly sure the company had indicated that would it would use a significant fraction of its resources of the compute time for doing safety research and then it kept then it reduced that fraction. I think that's one of the things that happened. >> Yeah, that was reported publicly. >> Yes. >> Yeah.",
+          "relevant": 1
+        },
+        {
+          "chunk_index": 1,
+          "text": "Are you at all hopeful that anything can be done to slow down the pace and acceleration of AI? >> Okay, there's two issues. One is can you slow it down? >> Yeah. >> And the other is can you make it so it will be safe in the end. It won't wipe us all out. I don't believe we're going to slow it down. >> Yeah. >> And the reason I don't believe we're going to slow it down is because there's competition between countries and competition between companies within a country and all of that is making it go faster and faster. And if the US slowed it down, China wouldn't slow it down. >> Does Ilia think it's possible to make AI safe? >> I think he does. He won't tell me what his secret source is. I I'm not sure how many people know what his secret source is. I think a lot of the investors don't know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 9,
+      "question_text": "What examples or demos are mentioned in the video?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "separately. >> So it's seen many many analogies probably many analogies that people have never seen. That's why I also think that people who say these things will never be creative. They're going to be much more creative than us because they're going to see all sorts of analogies we never saw. And a lot of creativity is about seeing strange analogies. If you love the D CEO brand and you watch this channel, please do me a huge favor. become part of the 15% of the viewers on this channel that have hit the subscribe button. It helps us tremendously and the bigger the channel gets, the bigger the guests.",
+          "relevant": 1
+        },
+        {
+          "chunk_index": 1,
+          "text": "might look like when I was able in the interview to tell this agent to order all of us drinks and then 5 minutes later in the interview you see the guy show up with the drinks and I didn't touch anything. I just told it to order us drinks to the studio. >> And you didn't know about who you normally got your drinks from. It figured that out from the web. >> Yeah, figured out cuz it went on Uber Eats. It has my my my data, I guess. And it I we put it on the screen in real time so everyone at home could see the agent going through the internet, picking the drinks, adding a tip for the driver, putting my address in, putting my credit card details in, and then the next thing you see is the drinks show up. >> So that was one moment. And then the other moment was when I used a tool called Replet and I built software by just telling the agent what I wanted. >> Yes. It's amazing, right? >> It's amazing and terrifying at the same time. >> Yes. >> Because >> and if it can build software like",
+          "relevant": 1
+        }
+      ]
+    },
+    {
+      "question_id": 10,
+      "question_text": "What does Hinton suggest should be done instead of stopping AI development?",
+      "chunks": [
+        {
+          "chunk_index": 0,
+          "text": "Are you at all hopeful that anything can be done to slow down the pace and acceleration of AI? >> Okay, there's two issues. One is can you slow it down? >> Yeah. >> And the other is can you make it so it will be safe in the end. It won't wipe us all out. I don't believe we're going to slow it down. >> Yeah. >> And the reason I don't believe we're going to slow it down is because there's competition between countries and competition between companies within a country and all of that is making it go faster and faster. And if the US slowed it down, China wouldn't slow it down. >> Does Ilia think it's possible to make AI safe? >> I think he does. He won't tell me what his secret source is. I I'm not sure how many people know what his secret source is. I think a lot of the investors don't know what his secret source is, but they've given him billions of dollars anyway because they have so much faith in Asia, which isn't foolish. I mean he was very important in alexnet which got object",
+          "relevant": 0
+        },
+        {
+          "chunk_index": 1,
+          "text": "and I built software by just telling the agent what I wanted. >> Yes. It's amazing, right? >> It's amazing and terrifying at the same time. >> Yes. >> Because >> and if it can build software like that, right? >> Yeah. >> Remember that the AI when it's training is using code and if it can modify its own code then it gets quite scary, right? because it can modify. >> It can change itself in a way we can't change ourselves. We can't change our innate endowment, right? There's nothing about itself that it couldn't change. >> On this point of joblessness, you have kids. >> I do. >> And they have kids. >> No, >> they don't have kids. No grandkids yet. What would you be saying to people about their career prospects in a world of super intelligence? What should we we be thinking about? Um, in the meantime, I'd say it's going to be a long time before it's as good at physical manipulation as us. >> Okay. >> And so, a good bet would be to be a plumber. until the humanoid robots show up in such a",
+          "relevant": 0
+        }
+      ]
+    }
+  ]
+}
