@@ -147,10 +147,9 @@ def build_chain_for_video(video_id: str):
     transcript = ""
 
     try:
-        ytt = YouTubeTranscriptApi()
-        fetched = ytt.fetch(video_id, languages=["en"])
-        # Join all snippet texts into one plain string
-        transcript = " ".join(chunk.text for chunk in fetched.snippets)
+       fetched = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
+       # fetched is a list of dicts: [{"text": "...", "start": ..., "duration": ...}, ...]
+       transcript = " ".join(chunk["text"] for chunk in fetched)
     except TranscriptsDisabled:
         # Raise HTTP 400 error — bad request (video has no captions)
         raise HTTPException(
