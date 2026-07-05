@@ -148,7 +148,7 @@ def build_chain_for_video(video_id: str):
 
     try:
        fetched = YouTubeTranscriptApi.get_transcript(video_id, languages=["en"])
-       fetched is a list of dicts: [{"text": "...", "start": ..., "duration": ...}, ...]
+       #fetched is a list of dicts: [{"text": "...", "start": ..., "duration": ...}, ...]
        transcript = " ".join(chunk["text"] for chunk in fetched)
        # CORRECT — current syntax
     #   ytt = YouTubeTranscriptApi()
