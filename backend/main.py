@@ -8,7 +8,7 @@
 
 # FastAPI is the web framework
 # uvicorn is the server that runs FastAPI
-
+from fastapi import FastAPI, HTTPException
 
 # CORSMiddleware allows the Chrome extension to talk to this server
 # Without this, Chrome will block all requests (security policy)
