@@ -18,7 +18,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # Your existing RAG pipeline imports
-from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint, HuggingFaceEmbeddings
+#changes now 
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint, HuggingFaceEndpointEmbeddings
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import PromptTemplate
@@ -28,18 +29,15 @@ from langchain_core.output_parsers import StrOutputParser
 
 # For caching — so we don't re-process the same video twice
 # Key = video_id, Value = the ready-to-use chain
-from typing import Dict
+from collections import OrderedDict
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
+ 
 import torch
 torch.set_num_threads(1)
-
-# ================================================================
-# APP SETUP
-# ================================================================
 
 # Create the FastAPI app instance
 app = FastAPI(
@@ -59,19 +57,26 @@ app.add_middleware(
     allow_headers=["*"],   # allow any headers
 )
 
-# ================================================================
-# CACHE
-# stores already-processed video chains so we don't
-# re-fetch + re-embed the same video every time
-# ================================================================
-video_cache: Dict[str, object] = {}
+#cache-aleardy processed video chains so we dont
+#refetch + reembed the same video - bounded with LRU style eviction so memory usage cant grow unbounded as more videos are asked
+MAX_CACHED_VIDEOS = 3
+video_cache: OrderedDict = OrderedDict()
 
-# ================================================================
-# REQUEST / RESPONSE MODELS
-# Pydantic automatically validates incoming request data
-# If the request is missing 'question' or 'video_id', FastAPI
-# automatically returns a 422 error before your code even runs
-# ================================================================
+def add_to_cache(video_id: str, chain):
+    if video_id in video_cache:
+        video_cache.move_to_end(video_id)
+    video_cache[video_id] = chain
+    if len(video_cache) > MAX_CACHED_VIDEOS:
+        oldest_id, _ = video_cache.popitem(last=False)
+        print(f"Evicted {oldest_id} from cache (memory limit)")
+ 
+ 
+def get_from_cache(video_id: str):
+    if video_id in video_cache:
+        video_cache.move_to_end(video_id)  # mark as recently used
+        return video_cache[video_id]
+    return None
+ 
 
 class AskRequest(BaseModel):
     video_id: str   
@@ -82,11 +87,9 @@ class AskResponse(BaseModel):
     video_id: str    # Echo back which video was used
     cached: bool     # Whether the video was already cached or freshly processed
 
-# ================================================================
+
 # LLM + PROMPT SETUP
-# These are initialized once when the server starts
-# not on every request — saves time
-# ================================================================
+
 
 print("Loading LLM...")
 
@@ -119,9 +122,14 @@ splitter = RecursiveCharacterTextSplitter(
 )
 
 # Embeddings model — initialized once, reused for every video
+
 print("Loading embeddings model...")
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
+#changes
+#embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+
+embeddings = HuggingFaceEndpointEmbeddings(
+    model="sentence-transformers/all-MiniLM-L6-v2",
+    huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN")
 )
 
 print("Server ready!")
@@ -221,22 +229,17 @@ async def ask(body: AskRequest):
 
     # Check cache first — if we've already processed this video,
     # skip the expensive transcript fetch + embedding step
-    cached = video_id in video_cache
+    chain = get_from_cache(video_id)
+    cached = chain is not None
 
-    if cached:
-
-        chain = video_cache[video_id]
-    else:
-        
-        # Build the RAG chain for this video (expensive operation)
+    if not cached: 
         chain = build_chain_for_video(video_id)
-        # Store in cache for future requests
-        video_cache[video_id] = chain
-       
 
-    # Run the chain with the user's question
+        add_to_cache(video_id, chain)
 
+    #run the chain with the user's que
     answer = chain.invoke(question)
+
 
     return AskResponse(
         answer=answer,
