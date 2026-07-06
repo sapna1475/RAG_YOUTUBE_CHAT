@@ -1,4 +1,4 @@
-const BACKEND_URL = "https://youtube-rag-backend.onrender.com";
+const BACKEND_URL = "https://youtube-rag-backend-mvqq.onrender.com";
 
 const videoLabel = document.getElementById("video-label");
 const questionInput = document.getElementById("question");

@@ -1,59 +1,62 @@
-# Ask YouTube — Ask Questions About Any YouTube Video
+# YT Answer — Ask Questions About Any YouTube Video
 
-A Chrome extension that lets you ask questions about any YouTube video and get AI-generated answers based on the actual transcript — not just what the model already knows.
-
-Built this because I wanted to understand how RAG pipelines actually work end to end, from raw text all the way to a usable product.
+A Chrome extension that answers questions about any YouTube video using a Retrieval-Augmented Generation (RAG) pipeline. Built to understand how RAG systems work end-to-end — not just wiring one together, but measuring whether it actually retrieves useful information.
 
 ---
 
-## How It Works
+
+## Demo
+
+![Ask YouTube Demo](assets/Ask_Youtube_demo.gif)
+
+*(Full quality video: [assets/Ask_Youtube_demo.mp4](assets/Ask_Youtube_demo.mp4))*
+
+## Why I Built This
+
+LLMs don't know what's inside a specific YouTube video — they can't answer questions about content outside their training data. Fine-tuning a model per video is impractical. RAG solves this by retrieving relevant transcript chunks at query time and injecting them into the LLM's context, working on any video instantly with no training required.
+
+But RAG pipelines can fail silently — a retriever can look like it's working while actually pulling irrelevant chunks, causing the LLM to hallucinate or give vague answers. So beyond building the pipeline, I built an evaluation system to measure and improve retrieval quality.
+
+---
+
+## Architecture
 
 ```
-You open a YouTube video
+User opens a YouTube video
         │
         ▼
 Chrome extension reads the video ID from the URL
         │
         ▼
-You type a question and click Ask
+User asks a question via the extension popup
         │
         ▼
-FastAPI backend fetches the transcript via YouTube Transcript API
+FastAPI backend receives the request
         │
         ▼
-Transcript is split into overlapping chunks (1000 words, 200 overlap)
+Transcript fetched via YouTube Transcript API
         │
         ▼
-Each chunk is converted to a 384-dimensional vector embedding
-using sentence-transformers/all-MiniLM-L6-v2
+Transcript split into overlapping chunks (RecursiveCharacterTextSplitter)
         │
         ▼
-Vectors are stored in a FAISS index
+Chunks embedded using sentence-transformers/all-MiniLM-L6-v2
         │
         ▼
-Your question is embedded using the same model
+Embeddings stored in a FAISS vector index
         │
         ▼
-FAISS finds the 4 most semantically similar chunks
+Question embedded → FAISS retrieves top-k most similar chunks
         │
         ▼
-Those chunks are injected as context into a prompt
-sent to Qwen 2.5 7B on HuggingFace
+Retrieved chunks injected into a prompt template
         │
         ▼
-Answer appears in the extension popup
+Qwen 2.5 7B (via HuggingFace) generates a grounded answer
+        │
+        ▼
+Answer returned to the extension popup
 ```
-
----
-
-## What I Built
-
-| Component | What it does |
-|---|---|
-| **Chrome Extension** | Reads video ID from YouTube URL, sends question to backend, displays answer |
-| **FastAPI Backend** | Handles requests, runs the full RAG pipeline, caches processed videos |
-| **RAG Pipeline** | Transcript → chunks → embeddings → FAISS → LLM → answer |
-| **Video Cache** | First question per video takes ~15s, follow-up questions take ~2s |
 
 ---
 
@@ -61,13 +64,49 @@ Answer appears in the extension popup
 
 | Layer | Technology |
 |---|---|
-| Chrome Extension | Vanilla JS, HTML, CSS |
+| Chrome Extension | Vanilla JavaScript, HTML, CSS |
 | Backend | Python, FastAPI, Uvicorn |
 | RAG Framework | LangChain |
 | Embeddings | sentence-transformers/all-MiniLM-L6-v2 |
-| Vector Store | FAISS (Facebook AI Similarity Search) |
-| LLM | Qwen 2.5 7B Instruct via HuggingFace |
-| Transcript | YouTube Transcript API |
+| Vector Store | FAISS |
+| LLM | Qwen 2.5 7B Instruct via HuggingFace Inference API |
+| Transcript Source | YouTube Transcript API |
+| Evaluation | Manual labeling + RAGAS |
+| Deployment | Render (backend) |
+
+---
+
+## Retrieval Evaluation
+
+Building the pipeline is the easy part — knowing whether it actually retrieves useful information is what matters. I built a standalone evaluation harness to measure this quantitatively rather than assuming the pipeline worked.
+
+
+### Results
+
+| Metric | Score |
+|---|---|
+| Manual Precision@2 (chunk_size=1000, k=2) | **70%** |
+| RAGAS context precision | **79.2%** |
+| RAGAS faithfulness | **81.1%** |
+| RAGAS answer relevancy | **78.5%** |
+
+
+### Evaluation Pipeline Design
+
+Built as a reusable 3-stage pipeline rather than a one-off script:
+
+```
+evaluation/
+├── test_questions.py     ← fixed set of 10 test questions
+├── run_retrieval.py      ← runs questions through FAISS, saves results to JSON
+├── label_relevance.py    ← interactive tool for manual relevance labeling
+├── calculate_metrics.py  ← computes Precision@K from labeled data
+└── ragas_eval.py         ← automated cross-validation using RAGAS
+```
+
+This design lets me re-run the same pipeline with different `chunk_size` or `k` values and compare results without rewriting code — each experiment saves a separate summary JSON for side-by-side comparison.
+
+
 
 ---
 
@@ -77,17 +116,28 @@ Answer appears in the extension popup
 RAG_YouTube_Chat/
 │
 ├── backend/
-│   └── main.py          ← FastAPI server + full RAG pipeline
+│   ├── main.py            ← FastAPI server + RAG pipeline
+│   ├── requirements.txt
+│   └── runtime.txt
 │
 ├── extension/
-│   ├── manifest.json    ← Chrome extension config
-│   ├── content.js       ← runs on YouTube, reads video ID
-│   ├── popup.html       ← extension UI
-│   └── popup.js         ← handles requests and displays answers
+│   ├── manifest.json
+│   ├── content.js          ← reads video ID from YouTube page
+│   ├── popup.html
+│   └── popup.js            ← handles requests, displays answers
 │
-├── model.py             ← original RAG prototype (development only)
-├── .env                 ← HuggingFace API token
-└── requirements.txt
+├── evaluation/
+│   ├── test_questions.py
+│   ├── run_retrieval.py
+│   ├── label_relevance.py
+│   ├── calculate_metrics.py
+│   ├── ragas_eval.py
+│   └── ragas_summary.json
+│
+├── assets/
+│   └── Ask_Youtube.gif
+│
+└── README.md
 ```
 
 ---
@@ -95,59 +145,53 @@ RAG_YouTube_Chat/
 ## Running Locally
 
 ### Prerequisites
-- Python 3.10+
+- Python 3.11+
 - Chrome browser
-- HuggingFace account (free)
+- Free HuggingFace account
 
-### 1. Clone the repo
+### Backend Setup
 ```bash
-git clone https://github.com/yourusername/RAG_YouTube_Chat.git
-cd RAG_YouTube_Chat
-```
+git clone https://github.com/sapna1475/RAG_YOUTUBE_CHAT.git
+cd RAG_YOUTUBE_CHAT/backend
 
-### 2. Set up virtual environment
-```bash
 python -m venv venv
-.\venv\Scripts\activate      # Windows
-source venv/bin/activate     # Mac/Linux
+.\venv\Scripts\activate        # Windows
+source venv/bin/activate       # Mac/Linux
+
+pip install -r requirements.txt
 ```
 
-### 3. Install dependencies
-```bash
-pip install fastapi uvicorn langchain langchain-huggingface
-pip install langchain-community faiss-cpu sentence-transformers
-pip install youtube-transcript-api python-dotenv
-```
-
-### 4. Add your HuggingFace token
-Create a `.env` file:
+Create a `.env` file in `backend/`:
 ```
 HUGGINGFACEHUB_API_TOKEN=your_token_here
 ```
-Get your free token at: https://huggingface.co/settings/tokens
 
-### 5. Start the backend
+Run the server:
 ```bash
-cd backend
 uvicorn main:app --reload --port 8000
 ```
 
-Confirm it's running:
-```
-http://localhost:8000/health  →  {"status": "ok"}
-```
-
-### 6. Load the Chrome extension
+### Extension Setup
 1. Open `chrome://extensions`
-2. Enable **Developer mode** (top right)
-3. Click **Load unpacked**
-4. Select the `extension/` folder
+2. Enable **Developer mode**
+3. Click **Load unpacked** → select the `extension/` folder
+4. Open any YouTube video with captions and click the extension icon
 
-### 7. Use it
-1. Open any YouTube video with captions
-2. Click the **YT Answer** icon in your toolbar
-3. Type a question
-4. Click **Ask**
+### Running the Evaluation Pipeline
+```bash
+cd evaluation
+python run_retrieval.py       # fetches chunks for test questions
+python label_relevance.py     # manually label each chunk (interactive)
+python calculate_metrics.py   # get your Precision@K score
+python ragas_eval.py          # cross-validate with RAGAS
+```
+
+---
+
+## Deployment
+
+The backend is deployed on **Render** (free tier). Deployment required pinning the Python runtime version (`runtime.txt` → Python 3.11.9) and relaxing package version pins in `requirements.txt`, since several exact-pinned dependency versions (`faiss-cpu`, `youtube-transcript-api`) weren't available for Render's build environment.
+
 
 ---
 
@@ -155,53 +199,28 @@ http://localhost:8000/health  →  {"status": "ok"}
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/` | Check server is running |
-| GET | `/health` | Health check for extension |
-| POST | `/ask` | Send video ID + question, get answer |
+| GET | `/` | Health check |
+| GET | `/health` | Extension pings this before sending requests |
+| POST | `/ask` | Main endpoint — video ID + question → answer |
 | DELETE | `/cache/{video_id}` | Clear cache for one video |
 | DELETE | `/cache` | Clear all cached videos |
 
-### Example Request
-```json
-POST /ask
-{
-  "video_id": "5KmopXwjXik",
-  "question": "What is the main topic of this video?"
-}
-```
 
-### Example Response
-```json
-{
-  "answer": "The video is about...",
-  "video_id": "5KmopXwjXik",
-  "cached": false
-}
-```
+**Why RAG instead of fine-tuning?**
+Fine-tuning per video is expensive and impractical. RAG retrieves relevant context dynamically at query time, working on any video instantly with zero training.
+
+**Why measure retrieval quality manually before using RAGAS?**
+Starting with manual labeling forced me to explicitly define what "relevant" means for this task, so I could sanity-check RAGAS's automated judgments against my own reasoning rather than trusting a black-box score blindly.
+
+**Why cache the built FAISS index per video?**
+Building the index takes 15-20 seconds. Caching means follow-up questions on the same video answer in 2-3 seconds instead of reprocessing every time.
 
 ---
 
-## Key Design Decisions
+## What I'd Improve Next
 
-**Why RAG instead of just asking the LLM directly?**
-LLMs don't know what's in a specific YouTube video. RAG lets you inject the actual transcript content as context at query time — no fine-tuning needed, works on any video instantly.
+- Expand the evaluation set from 20 to 50+ questions for statistical robustness
+- Add a second independent labeler and measure inter-rater agreement
+- Measure Recall@K in addition to Precision@K
 
-**Why FAISS instead of a cloud vector database?**
-For a locally running tool, FAISS is the right choice. It runs in memory, has zero latency overhead, and requires no external service. The tradeoff is that indexes don't persist across server restarts — which is acceptable for this use case.
-
-**Why chunk with overlap?**
-When splitting a transcript into chunks, important information can fall at the boundary between two chunks. A 200-word overlap ensures that context at boundaries isn't lost.
-
-**Why cache the built chain?**
-Building the FAISS index for a video takes 15-20 seconds. Caching the chain by video ID means follow-up questions on the same video are answered in 2-3 seconds.
-
----
-
-## Known Limitations
-
-- Backend must be running locally — not deployed to cloud yet
-- Only works on YouTube videos that have English captions enabled
-- Vector indexes are lost when the server restarts (no persistence layer yet)
-- Currently processes the full transcript on first question — could be optimized
-
--
+- Publish the extension to the Chrome Web Store instead of load-unpacked installation
