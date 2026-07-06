@@ -7,7 +7,7 @@ A Chrome extension that answers questions about any YouTube video using a Retrie
 
 ## Demo
 
-![Ask YouTube Demo](assets/Ask_Youtube_demo.gif)
+[Ask YouTube Demo](assets/Ask_Youtube_demo.gif)
 
 *(Full quality video: [assets/Ask_Youtube_demo.mp4](assets/Ask_Youtube_demo.mp4))*
 
