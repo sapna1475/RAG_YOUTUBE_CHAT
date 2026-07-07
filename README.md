@@ -1,4 +1,4 @@
-# YT Answer — Ask Questions About Any YouTube Video
+# Ask YouTube — Ask Questions About Any YouTube Video
 
 A Chrome extension that answers questions about any YouTube video using a Retrieval-Augmented Generation (RAG) pipeline. Built to understand how RAG systems work end-to-end — not just wiring one together, but measuring whether it actually retrieves useful information.
 
@@ -97,7 +97,7 @@ Built as a reusable 3-stage pipeline rather than a one-off script:
 
 ```
 evaluation/
-├── test_questions.py     ← fixed set of 10 test questions
+├── test_questions.py     ← fixed set of 20 test questions
 ├── run_retrieval.py      ← runs questions through FAISS, saves results to JSON
 ├── label_relevance.py    ← interactive tool for manual relevance labeling
 ├── calculate_metrics.py  ← computes Precision@K from labeled data
