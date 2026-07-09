@@ -221,6 +221,4 @@ Building the index takes 15-20 seconds. Caching means follow-up questions on the
 
 - Expand the evaluation set from 20 to 50+ questions for statistical robustness
 - Add a second independent labeler and measure inter-rater agreement
-- Measure Recall@K in addition to Precision@K
-
 - Publish the extension to the Chrome Web Store instead of load-unpacked installation
